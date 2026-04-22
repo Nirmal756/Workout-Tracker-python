@@ -32,7 +32,7 @@ jobs:
           fi
       - name: 4. Simulate Deployment
         run: |
-          echo: "Step: Deploying.."
+          echo "Step: Deploying.."
           mkdir -p deploy_target
           cp simulation_workspace/config.txt deploy_target/verified_config.txt
           echo "Depoyment of varified_config.txt completed"
