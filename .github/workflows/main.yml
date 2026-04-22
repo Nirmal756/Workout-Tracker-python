@@ -1,1 +1,46 @@
-#workflow
+
+name: Workflow simulation
+
+on:
+  push:
+    branches: [ "main"]
+  workflow_dispatch:
+
+jobs:
+  run-simulatoion:
+    runs-on: [self-hosted, arbor]
+
+    steps:
+      - name: 1. Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Create Directory and File
+        run: |
+          echo "Step: Initialize"
+          mkdir -p simulation_workspace
+          echo "this is a simulation" > simulation_workspace/config.txt
+          echo "Created simulation_workspace/config.txt"
+
+      - name: 3. Test File Content
+        run: |
+          echo "Step: Testing...."
+          if grep -q "this is a simulation" simulation_workspace/config.txt; then
+            echo "Verification successful: Content matches."
+          else
+            echo "Verification failed: Content mismtach."
+              exit 1
+          fi
+      - name: 4. Simulate Deployment
+        run: |
+          echo: "Step: Deploying.."
+          mkdir -p deploy_target
+          cp simulation_workspace/config.txt deploy_target/verified_config.txt
+          echo "Depoyment of varified_config.txt completed"
+
+      - name: 5. Final Cleanup
+        if: always()
+        run: |
+          echo "Cleaning up workspace...."
+          rm -rf simulation_workspace
+
+          
