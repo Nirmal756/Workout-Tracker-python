@@ -1,1 +1,4 @@
-git clone the code and try it out yourself
+README file
+-------------
+
+This is your readme file.refer me and setup your project environmet.
